@@ -13,13 +13,14 @@
 
     <div class="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
         <div class="bg-white py-8 px-4 shadow sm:rounded-lg sm:px-10 border-t-4 border-blue-600">
-            <form #form="ngForm" (ngSubmit)="onSubmit()" class="space-y-6" action="#" method="POST">
+            <form #form="ngForm" (ngSubmit)="onSubmit(form)" class="space-y-6">
                 <div>
+
                     <label for="name" class="block text-sm font-medium text-gray-700">
                         Full Name
                     </label>
                     <div class="mt-1">
-                        <input id="name" name="name" type="text" autocomplete="name" required
+                        <input id="name" name="userName" type="text" autocomplete="name" required ngModel
                             class="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm">
                     </div>
                 </div>
@@ -29,7 +30,7 @@
                         Email address
                     </label>
                     <div class="mt-1">
-                        <input id="email" name="email" type="email" autocomplete="email" required
+                        <input id="email" name="email" type="email" autocomplete="email" required ngModel
                             class="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm">
                     </div>
                 </div>
@@ -40,6 +41,7 @@
                     </label>
                     <div class="mt-1">
                         <input id="password" name="password" type="password" autocomplete="new-password" required
+                            ngModel
                             class="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm">
                     </div>
                 </div>
@@ -49,14 +51,14 @@
                         Confirm Password
                     </label>
                     <div class="mt-1">
-                        <input id="confirm-password" name="confirm-password" type="password" autocomplete="new-password"
-                            required
+                        <input id="confirm-password" name="confirmPassword" type="password" autocomplete="new-password"
+                            required ngModel
                             class="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm">
                     </div>
                 </div>
 
                 <div class="flex items-center">
-                    <input id="terms" name="terms" type="checkbox" required
+                    <input id="terms" name="terms" type="checkbox" required ngModel
                         class="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded">
                     <label for="terms" class="ml-2 block text-sm text-gray-900">
                         I agree to the <a href="#" class="text-blue-600 hover:text-blue-500">Terms of Service</a> and <a
