@@ -27,7 +27,25 @@ export class Login {
          this.loginForm.markAllAsTouched
           return ;
         }else{
+           const email = this.loginForm.value.email
+          const password = this.loginForm.value.password
           
+          this.authService.login(email).subscribe({
+            next:(Response :any[]) =>{
+              if(Response.length>0){
+                const user =Response[0];
+                if(user.password == password){
+                  console.log("login success")
+                  }else {
+                    console.log("password is inccorect")
+                  }
+              }else{
+                console.error("no user was found")
+              } 
+            }
+
+          });
+
         }
     }
 
