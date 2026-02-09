@@ -1,39 +1,39 @@
-import { Component } from '@angular/core';
-import { AuthService } from '../../services/auth/auth';
-import { Router } from '@angular/router';
-import { FormsModule, NgForm } from '@angular/forms';
-import { CommonModule } from '@angular/common';
+// import { Component, inject } from '@angular/core';
+// import { Form, FormBuilder, FormGroup, FormsModule,Validator, Validators } from '@angular/forms';
+// import { Auth } from '../../services/auth/auth';
+// import { email, required } from '@angular/forms/signals';
 
-@Component({
-  selector: 'app-inscription',
-  standalone: true,
-  imports: [FormsModule, CommonModule],
-  templateUrl: './inscription.html',
-  styleUrl: './inscription.css',
-})
-export class Inscription {
+// @Component({
+//   selector: 'app-inscription',
+//   imports: [FormsModule],
+//   templateUrl: './inscription.html',
+//   styleUrl: './inscription.css',
+// })
+// export class Inscription {
 
-  constructor(private authService: AuthService, private router: Router) { }
+//   private authservice =inject(Auth)
+//   registerForm!:FormGroup
 
-  onSubmit(form: NgForm) {
-    if (form.valid) {
-      const { userName, email, password, confirmPassword } = form.value;
+//     constructor(private fb: FormBuilder) {}
 
-      if (password !== confirmPassword) {
-        alert('Passwords do not match');
-        return;
-      }
 
-      this.authService.register({ userName, email, password }).subscribe({
-        next: (user) => {
-          console.log('Registration successful', user);
-          this.router.navigate(['/login']);
-        },
-        error: (err) => {
-          console.error('Registration error', err);
-          alert('Registration failed');
-        }
-      });
-    }
-  }
-}
+//     ngOnInit():void{
+//       this.registerForm =this.fb.group({
+//         userName:['',[Validators.required,Validators.pattern(/^[a-zA-Z0-9_]{3,}$/)]],
+//         email:['',[Validators.required,Validators.email]],
+//         password:['',[Validators.required,Validators.minLength(6)]]
+//       })
+
+//     }
+
+
+
+    
+//   onSubmet(){
+//     if(this.registerForm.invalid){
+//       this.registerForm.markAllAsTouched();
+//     }
+
+//   }
+
+// }
