@@ -7,7 +7,7 @@ import { Observable } from 'rxjs';
 })
 export class Auth {
   private http = inject(HttpClient);  
-  private apiUrl = 'https//:localhost:3000'
+  private apiUrl = 'http://localhost:3000'
 
 
 
@@ -22,6 +22,7 @@ export class Auth {
 
 
   register(userData:any):Observable<any>{
+    console.log("its in the service")
     return this.http.post(`${this.apiUrl}/users`,userData);
   }
 
