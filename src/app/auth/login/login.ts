@@ -22,6 +22,7 @@ export class Login {
     }
 
 
+
     onSubmit(){
       if(this.loginForm.invalid){
          this.loginForm.markAllAsTouched
@@ -36,6 +37,13 @@ export class Login {
                 const user =Response[0];
                 if(user.password == password){
                   console.log("login success")
+
+                  const safeUser ={
+                    email:user.email,
+                    userName:user.userName,
+                    name:user.name
+                  }
+                  localStorage.setItem ('user',JSON.stringify(safeUser))
                   }else {
                     console.log("password is inccorect")
                   }
