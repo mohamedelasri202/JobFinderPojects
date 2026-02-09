@@ -2,6 +2,7 @@ import { Component, inject } from '@angular/core';
 import { Form, FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Auth } from '../../services/auth/auth';
 import { Validator } from '@angular/forms';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -12,6 +13,7 @@ import { Validator } from '@angular/forms';
 export class Login {
 
     private authService =inject(Auth)
+    private router = inject(Router)
     loginForm!:FormGroup
 
     constructor(private fb:FormBuilder){
@@ -44,6 +46,7 @@ export class Login {
                     name:user.name
                   }
                   localStorage.setItem ('user',JSON.stringify(safeUser))
+                  this.router.navigate(['/'])
                   }else {
                     console.log("password is inccorect")
                   }
