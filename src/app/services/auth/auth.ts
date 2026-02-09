@@ -24,6 +24,11 @@ export class Auth {
   register(userData:any):Observable<any>{
     console.log("its in the service")
     return this.http.post(`${this.apiUrl}/users`,userData);
+  } 
+
+  login(email:string):Observable<any>{
+    console.log("its here")
+    return this.http.get(`${this.apiUrl}/users?email=${email}`)
   }
 
 
