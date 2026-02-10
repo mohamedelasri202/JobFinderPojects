@@ -1,9 +1,9 @@
 import { Component, inject } from '@angular/core';
 import { Form, FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { Auth } from '../../services/auth/auth';
+import { Auth } from '../../../services/auth/auth';
 import { Validator } from '@angular/forms';
 import { Router } from '@angular/router';
-import { User } from '../../services/user/user';
+import { User } from '../../../services/user/user';
 
 @Component({
   selector: 'app-login',
@@ -44,11 +44,12 @@ export class Login {
                   console.log("login success")
 
                   const safeUser ={
+                    id:user.id,
                     email:user.email,
                     userName:user.userName,
                     name:user.name
                   }
-                  // localStorage.setItem ('user',JSON.stringify(safeUser))
+                
                   this.userServie.setUser(safeUser)
                   
                     

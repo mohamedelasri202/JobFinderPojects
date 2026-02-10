@@ -1,6 +1,6 @@
 import { Component, inject } from '@angular/core';
 import { Form, FormBuilder, FormGroup, FormsModule,Validator, Validators } from '@angular/forms';
-import { Auth } from '../../services/auth/auth';
+import { Auth } from '../../../services/auth/auth';
 import { email, required } from '@angular/forms/signals';
 import { errorContext } from 'rxjs/internal/util/errorContext';
 import { ReactiveFormsModule } from '@angular/forms';
