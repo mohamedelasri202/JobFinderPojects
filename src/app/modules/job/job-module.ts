@@ -1,11 +1,11 @@
 
 export interface Job{
-  id :number,
-  title:string,
-  description:string,
-  company:{name:string},
-  location:{name:string}[],
-  refs:{landing_page:string}
+ id: number;
+  name: string;     
+  contents: string;
+  company: { name: string };
+  locations: { name: string }[];
+  refs: { landing_page: string };
 }
 
 export interface MuseResponse{
