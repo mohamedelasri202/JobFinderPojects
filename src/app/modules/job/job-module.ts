@@ -1,12 +1,16 @@
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
 
+export interface Job{
+  id :number,
+  title:string,
+  description:string,
+  company:{name:string},
+  location:{name:string}[],
+  refs:{landing_page:string}
+}
 
-
-@NgModule({
-  declarations: [],
-  imports: [
-    CommonModule
-  ]
-})
-export class JobModule { }
+export interface MuseResponse{
+  results:Job[],
+  page:number,
+  page_count:string,
+  total:number
+}
