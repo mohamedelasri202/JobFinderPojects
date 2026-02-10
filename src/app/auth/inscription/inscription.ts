@@ -4,6 +4,7 @@ import { Auth } from '../../services/auth/auth';
 import { email, required } from '@angular/forms/signals';
 import { errorContext } from 'rxjs/internal/util/errorContext';
 import { ReactiveFormsModule } from '@angular/forms';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-inscription',
@@ -14,6 +15,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 export class Inscription {
 
   private authservice =inject(Auth)
+  private router =inject(Router)
   registerForm!:FormGroup
 
     constructor(private fb: FormBuilder) {}
@@ -42,6 +44,8 @@ export class Inscription {
      this.authservice.register(user).subscribe({
       next:(Response)=>{
         this.registerForm.reset();
+        this.router.navigate(['/login'])
+
       },
       error:(err)=>{
         console.error('Registration failed', err)

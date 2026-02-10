@@ -3,6 +3,7 @@ import { Form, FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@
 import { Auth } from '../../services/auth/auth';
 import { Validator } from '@angular/forms';
 import { Router } from '@angular/router';
+import { User } from '../../services/user/user';
 
 @Component({
   selector: 'app-login',
@@ -13,8 +14,10 @@ import { Router } from '@angular/router';
 export class Login {
 
     private authService =inject(Auth)
+    private userServie = inject(User)
     private router = inject(Router)
     loginForm!:FormGroup
+  
 
     constructor(private fb:FormBuilder){
       this.loginForm = this.fb.group({
@@ -27,7 +30,7 @@ export class Login {
 
     onSubmit(){
       if(this.loginForm.invalid){
-         this.loginForm.markAllAsTouched
+         this.loginForm.markAllAsTouched();
           return ;
         }else{
            const email = this.loginForm.value.email
@@ -45,7 +48,10 @@ export class Login {
                     userName:user.userName,
                     name:user.name
                   }
-                  localStorage.setItem ('user',JSON.stringify(safeUser))
+                  // localStorage.setItem ('user',JSON.stringify(safeUser))
+                  this.userServie.setUser(safeUser)
+                  
+                    
                   this.router.navigate(['/'])
                   }else {
                     console.log("password is inccorect")
