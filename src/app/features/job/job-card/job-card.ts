@@ -1,4 +1,4 @@
-import { Component, Input, input } from '@angular/core';
+import { Component, DoCheck, Input, input } from '@angular/core';
 import { Job } from '../../../modules/job/job-module';
 import { required } from '@angular/forms/signals';
 import { CommonModule } from '@angular/common';
@@ -8,8 +8,12 @@ import { CommonModule } from '@angular/common';
   templateUrl: './job-card.html',
   styleUrl: './job-card.css',
 })
-export class JobCard {
+export class JobCard implements DoCheck {
 
   @Input({required:true}) job!:Job
 
+  isAuth = false;
+  ngDoCheck() {
+    this.isAuth =!!localStorage.getItem('user');
+  }
 }
