@@ -7,163 +7,91 @@
     </div>
 
     <form [formGroup]="searchForm" (ngSubmit)="onSearch()">
-  <div class="bg-white rounded-lg shadow-xl p-6 md:p-8">
-    <div class="grid grid-cols-1 md:grid-cols-12 gap-4 items-end">
-      
-      <!-- Keyword -->
-      <div class="md:col-span-4">
-        <label for="keyword" class="block text-sm font-medium text-gray-700 mb-1">What (Job Title)</label>
-        <input 
-          type="text" 
-          id="keyword"
-          formControlName="keyword" 
-          class="block w-full px-4 py-3 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500 transition duration-150" 
-          placeholder="e.g. Java, Developer, Designer">
-      </div>
+      <div class="bg-white rounded-lg shadow-xl p-6 md:p-8">
+        <div class="grid grid-cols-1 md:grid-cols-12 gap-4 items-end">
+          
+          <div class="md:col-span-4">
+            <label for="keyword" class="block text-sm font-medium text-gray-700 mb-1">What (Job Title)</label>
+            <input type="text" id="keyword" formControlName="keyword" 
+              class="block w-full px-4 py-3 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500" 
+              placeholder="e.g. Java, Developer, Designer">
+          </div>
 
-      <!-- Location -->
-      <div class="md:col-span-4">
-        <label for="location" class="block text-sm font-medium text-gray-700 mb-1">Where (Location)</label>
-        <input 
-          type="text" 
-          id="location"
-          formControlName="location" 
-          class="block w-full px-4 py-3 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500 transition duration-150" 
-          placeholder="e.g. New York, Remote">
-      </div>
+          <div class="md:col-span-4">
+            <label for="location" class="block text-sm font-medium text-gray-700 mb-1">Where (Location)</label>
+            <input type="text" id="location" formControlName="location" 
+              class="block w-full px-4 py-3 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500" 
+              placeholder="e.g. New York, Remote">
+          </div>
 
-      <!-- Experience Level - ADD THIS -->
-      <div class="md:col-span-2">
-        <label for="level" class="block text-sm font-medium text-gray-700 mb-1">Level</label>
-        <select 
-          id="level"
-          formControlName="level" 
-          class="block w-full px-4 py-3 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500 transition duration-150">
-          <option value="">All Levels</option>
-          <option value="Entry Level">Entry Level</option>
-          <option value="Mid Level">Mid Level</option>
-          <option value="Senior Level">Senior Level</option>
-          <option value="Management">Management</option>
-          <option value="Internship">Internship</option>
-        </select>
-      </div>
+          <div class="md:col-span-2">
+            <label for="level" class="block text-sm font-medium text-gray-700 mb-1">Level</label>
+            <select id="level" formControlName="level" 
+              class="block w-full px-4 py-3 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500">
+              <option value="">All Levels</option>
+              <option value="Entry Level">Entry Level</option>
+              <option value="Mid Level">Mid Level</option>
+              <option value="Senior Level">Senior Level</option>
+              <option value="Management">Management</option>
+              <option value="Internship">Internship</option>
+            </select>
+          </div>
 
-      <!-- Search Button -->
-      <div class="md:col-span-2">
-        <button 
-          type="submit"
-          class="w-full py-3 px-4 bg-blue-600 text-white rounded-md font-bold hover:bg-blue-700 transition duration-200">
-          Find Jobs
-        </button>
+          <div class="md:col-span-2">
+            <button type="submit" class="w-full py-3 px-4 bg-blue-600 text-white rounded-md font-bold hover:bg-blue-700 transition duration-200">
+              Find Jobs
+            </button>
+          </div>
+        </div>
       </div>
-    </div>
-  </div>
-</form>
+    </form>
 
     <div class="mt-12">
-      
       @if (jobs().results.length > 0) {
         <div class="flex justify-between items-center mb-6">
-          <h3 class="text-xl font-bold text-gray-900">
-            Found {{ jobs().total }} Results
-          </h3>
+          <h3 class="text-xl font-bold text-gray-900">Found {{ jobs().total }} Results</h3>
           <span class="text-sm text-gray-500 italic">Page {{ jobs().page + 1 }} of {{ jobs().page_count }}</span>
         </div>
       }
 
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         @for (job of jobs().results; track job.id) {
-          
-          <div class="bg-white p-6 rounded-lg shadow-md border border-gray-100 hover:shadow-lg transition-shadow duration-300 flex flex-col justify-between">
-            <div>
-              <div class="flex justify-between items-start mb-2">
-                <span class="text-xs font-bold text-blue-600 uppercase tracking-wider bg-blue-50 px-2 py-1 rounded">
-                  {{ job.levels[0]?.name || 'All Levels' }}
-                </span>
-                <small class="text-gray-400">{{ job.publication_date | date:'shortDate' }}</small>
-              </div>
-              
-              <h4 class="text-lg font-bold text-gray-900 leading-tight mb-1">{{ job.name }}</h4>
-              <p class="text-gray-600 font-medium mb-4">{{ job.company.name }}</p>
-
-              <div class="flex items-center text-sm text-gray-500 mb-4">
-                <svg class="h-4 w-4 mr-1 text-gray-400" fill="currentColor" viewBox="0 0 20 20">
-                  <path fill-rule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clip-rule="evenodd" />
-                </svg>
-                {{ job.locations[0]?.name || 'Remote / Flexible' }}
-              </div>
-            </div>
-
-            <div class="space-y-2">
-              <a [href]="job.refs.landing_page" target="_blank" 
-                 class="block w-full text-center py-2 px-4 bg-gray-900 text-white rounded font-semibold hover:bg-black transition">
-                View Offer Details
-              </a>
-              
-              <div class="flex gap-2">
-                <button class="flex-1 py-2 px-4 border border-blue-600 text-blue-600 rounded text-sm font-bold hover:bg-blue-50 transition">
-                  Save
-                </button>
-                <button class="flex-1 py-2 px-4 bg-green-600 text-white rounded text-sm font-bold hover:bg-green-700 transition">
-                  Apply
-                </button>
-              </div>
-            </div>
-          </div>
-
+          <app-job-card [job]="job"></app-job-card>
         } @empty {
           <div class="col-span-full text-center py-20 bg-white rounded-xl border-2 border-dashed border-gray-200">
             <svg class="mx-auto h-12 w-12 text-gray-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
             </svg>
             <h3 class="mt-2 text-sm font-medium text-gray-900">No jobs found</h3>
-            <p class="mt-1 text-sm text-gray-500">Try adjusting your keyword or location to find more results.</p>
+            <p class="mt-1 text-sm text-gray-500">Try adjusting your keyword or location.</p>
           </div>
         }
       </div>
-    <!-- Add this after the job cards grid, before closing </div> -->
 
-@if (jobs().results.length > 0) {
-  <div class="mt-8 flex justify-center items-center gap-2">
-    <!-- Previous button -->
-    <button 
-      (click)="previousPage()"
-      [disabled]="jobs().page === 0"
-      class="px-4 py-2 bg-gray-200 text-gray-700 rounded hover:bg-gray-300 disabled:opacity-50 disabled:cursor-not-allowed">
-      Previous
-    </button>
+      @if (jobs().results.length > 0) {
+        <div class="mt-8 flex justify-center items-center gap-2">
+          <button (click)="previousPage()" [disabled]="jobs().page === 0" 
+            class="px-4 py-2 bg-gray-200 text-gray-700 rounded hover:bg-gray-300 disabled:opacity-50 disabled:cursor-not-allowed">
+            Previous
+          </button>
 
-    <!-- Page numbers -->
-    <div class="flex gap-1">
-      @for (pageNum of [].constructor(jobs().page_count); track $index) {
-        <button 
-          (click)="goToPage($index + 1)"
-          [class.bg-blue-600]="jobs().page === $index"
-          [class.text-white]="jobs().page === $index"
-          [class.bg-gray-200]="jobs().page !== $index"
-          [class.text-gray-700]="jobs().page !== $index"
-          class="px-3 py-2 rounded hover:bg-blue-500 hover:text-white transition">
-          {{ $index + 1 }}
-        </button>
+          <div class="flex gap-1">
+            @for (item of [].constructor(jobs().page_count); track $index) {
+              <button (click)="goToPage($index)" 
+                [class.bg-blue-600]="jobs().page === $index"
+                [class.text-white]="jobs().page === $index"
+                class="px-3 py-2 rounded bg-gray-200 text-gray-700 hover:bg-blue-500 hover:text-white transition">
+                {{ $index + 1 }}
+              </button>
+            }
+          </div>
+
+          <button (click)="nextPage()" [disabled]="jobs().page >= jobs().page_count - 1"
+            class="px-4 py-2 bg-gray-200 text-gray-700 rounded hover:bg-gray-300 disabled:opacity-50 disabled:cursor-not-allowed">
+            Next
+          </button>
+        </div>
       }
-    </div>
-
-    <!-- Next button -->
-    <button 
-      (click)="nextPage()"
-      [disabled]="jobs().page >= jobs().page_count - 1"
-      class="px-4 py-2 bg-gray-200 text-gray-700 rounded hover:bg-gray-300 disabled:opacity-50 disabled:cursor-not-allowed">
-      Next
-    </button>
-  </div>
-}
-    
-    
-    
-    
-    
-    
     </div>
   </div>
 </section>
-

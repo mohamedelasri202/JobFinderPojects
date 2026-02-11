@@ -10,11 +10,12 @@ import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
 
 import { JobService } from '../../../services/job/job-service'; 
 import { JobResponse, Job } from '../../../modules/job/job-module';
+import { JobCard } from '../../../features/job/job-card/job-card';
 
 @Component({
   selector: 'app-search',
   standalone: true,
-  imports: [ReactiveFormsModule, CommonModule],
+  imports: [ReactiveFormsModule, CommonModule,JobCard],
   templateUrl: './search.html',
   styleUrl: './search.css',
 })
@@ -43,7 +44,7 @@ export class Search implements OnInit {
     this.searchForm = this._fb.group({
       keyword: [''],
       location: [''],
-      level: ['']  // ✅ ADD THIS - was missing!
+      level: [''] 
     });
 
     this.searchForm.get('keyword')?.valueChanges.pipe(
@@ -80,7 +81,7 @@ export class Search implements OnInit {
       queryParams: { 
         keyword: keyword,
         location: location, 
-        level: level,  // ✅ Fixed: was just "level" before
+        level: level, 
         page: 1  
       }
     });
@@ -100,7 +101,7 @@ export class Search implements OnInit {
 
       for (let i = 1; i <= pagesToFetch; i++) {
         requests.push(
-          // ✅ PASS level to the API (it will do some filtering for us)
+          
           this._jobService.getAllJobs(i, locationFilter || undefined, levelFilter || undefined).pipe(
             catchError(() => of(null))
           )
@@ -117,7 +118,7 @@ export class Search implements OnInit {
             }
           });
 
-          // Filter by keyword (search in job title)
+          
           if (keyword && keyword.trim() !== '') {
             const lowerKeyword = keyword.toLowerCase().trim();
             allResults = allResults.filter(job => 
@@ -125,7 +126,7 @@ export class Search implements OnInit {
             );
           }
 
-          // Filter by location (already filtered by API, but double-check client-side)
+        
           if (locationFilter && locationFilter.trim() !== '') {
             const lowerLocation = locationFilter.toLowerCase().trim();
             allResults = allResults.filter(job => {
@@ -135,7 +136,7 @@ export class Search implements OnInit {
             });
           }
           
-          // Filter by level (already filtered by API, but double-check client-side)
+         
           if (levelFilter && levelFilter.trim() !== '') {
             const levelLower = levelFilter.toLowerCase().trim();
             allResults = allResults.filter(job => {
@@ -145,7 +146,7 @@ export class Search implements OnInit {
             });
           }
          
-          // Sort by publication date (newest first)
+          
           allResults.sort((a, b) => {
             const dateA = new Date(a.publication_date).getTime();
             const dateB = new Date(b.publication_date).getTime();
@@ -171,7 +172,7 @@ export class Search implements OnInit {
 
           this._spinner.hide();
           
-          // Better toast messages
+        
           if (totalResults === 0) {
             let message = 'No jobs found';
             const filters = [];
@@ -196,14 +197,14 @@ export class Search implements OnInit {
   goToPage(page: number) {
     const keyword = this.searchForm.value.keyword || '';
     const location = this.searchForm.value.location || '';
-    const level = this.searchForm.value.level || '';  // ✅ ADD THIS - was missing!
+    const level = this.searchForm.value.level || ''; 
 
     this._router.navigate([], {
       relativeTo: this._route,
       queryParams: { 
         keyword: keyword,
         location: location,
-        level: level,  // ✅ ADD THIS - was missing!
+        level: level, 
         page: page
       }
     });
