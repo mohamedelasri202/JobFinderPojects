@@ -27,10 +27,8 @@ export class Search implements OnInit {
 
   searchForm!: FormGroup;
   
-  // Store ALL filtered jobs
   private allFilteredJobs: Job[] = [];
   
-  // Items per page for client-side pagination
   private readonly ITEMS_PER_PAGE = 10;
   
   jobs = signal<JobResponse>({
@@ -47,7 +45,6 @@ export class Search implements OnInit {
       location: ['']
     });
 
-    // Real-time search
     this.searchForm.get('keyword')?.valueChanges.pipe(
       debounceTime(300),
       distinctUntilChanged()
@@ -74,7 +71,7 @@ export class Search implements OnInit {
       queryParams: { 
         keyword: keyword,
         location: location, 
-        page: 1  // Reset to page 1 on new search
+        page: 1  
       }
     });
   }
@@ -85,15 +82,15 @@ export class Search implements OnInit {
 
       const currentPage = Number(params.get('page')) || 1;
       const keyword = params.get('keyword') || '';
-      const location = params.get('location') || undefined;
+      const locationFilter = params.get('location') || '';
 
-      // Fetch multiple pages from API (adjust this number based on your needs)
-      const pagesToFetch = 10; // Fetches ~100-200 jobs
+      const pagesToFetch = 10; 
       const requests = [];
 
       for (let i = 1; i <= pagesToFetch; i++) {
         requests.push(
-          this._jobService.getAllJobs(i, undefined, location).pipe(
+          // Don't pass location to API, we'll filter client-side
+          this._jobService.getAllJobs(i, undefined).pipe(
             catchError(() => of(null))
           )
         );
@@ -101,7 +98,6 @@ export class Search implements OnInit {
 
       forkJoin(requests).subscribe({
         next: (responses: any[]) => {
-          // Combine all results from all API pages
           let allResults: Job[] = [];
           
           responses.forEach(resp => {
@@ -118,21 +114,35 @@ export class Search implements OnInit {
             );
           }
 
-          // Store all filtered results
+          // Filter by location (search in locations array)
+          if (locationFilter && locationFilter.trim() !== '') {
+            const lowerLocation = locationFilter.toLowerCase().trim();
+            allResults = allResults.filter(job => {
+              // Check if any location contains the search term
+              return job.locations && job.locations.some(loc => 
+                loc.name.toLowerCase().includes(lowerLocation)
+              );
+            });
+          }
+
+          // Sort by publication date (newest first)
+          allResults.sort((a, b) => {
+            const dateA = new Date(a.publication_date).getTime();
+            const dateB = new Date(b.publication_date).getTime();
+            return dateB - dateA; 
+          });
+
           this.allFilteredJobs = allResults;
 
-          // Calculate pagination for filtered results
           const totalResults = allResults.length;
           const totalPages = Math.ceil(totalResults / this.ITEMS_PER_PAGE);
           
-          // Get results for current page
           const startIndex = (currentPage - 1) * this.ITEMS_PER_PAGE;
           const endIndex = startIndex + this.ITEMS_PER_PAGE;
           const paginatedResults = allResults.slice(startIndex, endIndex);
 
-          // Update signal with paginated data
           this.jobs.set({
-            page: currentPage - 1, // Zero-indexed
+            page: currentPage - 1, 
             page_count: totalPages,
             items_per_page: this.ITEMS_PER_PAGE,
             total: totalResults,
@@ -141,8 +151,15 @@ export class Search implements OnInit {
 
           this._spinner.hide();
           
-          if (totalResults === 0 && keyword) {
-            toast.info(`No jobs found with "${keyword}" in the title`);
+          // Show appropriate message
+          if (totalResults === 0) {
+            if (keyword && locationFilter) {
+              toast.info(`No jobs found with "${keyword}" in "${locationFilter}"`);
+            } else if (keyword) {
+              toast.info(`No jobs found with "${keyword}" in the title`);
+            } else if (locationFilter) {
+              toast.info(`No jobs found in "${locationFilter}"`);
+            }
           }
         },
         error: () => {
@@ -153,7 +170,6 @@ export class Search implements OnInit {
     });
   }
 
-  // Helper methods for pagination
   goToPage(page: number) {
     const keyword = this.searchForm.value.keyword || '';
     const location = this.searchForm.value.location || '';
@@ -173,7 +189,7 @@ export class Search implements OnInit {
     const totalPages = this.jobs().page_count;
     
     if (currentPage < totalPages) {
-      this.goToPage(currentPage + 2); // +2 because page is zero-indexed
+      this.goToPage(currentPage + 2); 
     }
   }
 
