@@ -1,16 +1,19 @@
 
-export interface Job{
- id: number;
-  name: string;     
+export interface Job {
+  id: string;
+  name: string;
   contents: string;
-  company: { name: string };
+  publication_date: string;
   locations: { name: string }[];
+  categories: { name: string }[];
+  levels: { name: string }[];
+  company: { name: string };
   refs: { landing_page: string };
 }
-
-export interface MuseResponse{
-  results:Job[],
-  page:number,
-  page_count:string,
-  total:number
+export interface JobResponse {
+  page: number;
+  page_count: number;
+  items_per_page: number;
+  total: number;
+  results: Job[];
 }

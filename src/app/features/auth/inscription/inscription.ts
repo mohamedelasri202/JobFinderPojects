@@ -30,10 +30,7 @@ export class Inscription {
       })
 
     }
-
-
-
-    
+  
   onSubmit(){
     if(this.registerForm.invalid){
       this.registerForm.markAllAsTouched();

@@ -1,51 +1,108 @@
-import { Component, inject, OnInit } from '@angular/core';
-import { FormGroup, ReactiveFormsModule } from '@angular/forms';
-import { CommonModule } from '@angular/common'; // Important for template logic
-import { Job } from '../../../services/job/job';
+import { Component, inject, OnInit, signal } from '@angular/core';
+import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { CommonModule } from '@angular/common';
+import { ActivatedRoute, Router } from '@angular/router';
+import {NgxSpinnerService} from 'ngx-spinner'
+import { toast } from 'ngx-sonner';
+
+
+import { JobService } from '../../../services/job/job-service'; 
+
+import { JobResponse } from '../../../modules/job/job-module';
 
 @Component({
   selector: 'app-search',
   standalone: true,
-  imports: [ReactiveFormsModule, CommonModule], // 👈 Added these
+  imports: [ReactiveFormsModule, CommonModule],
   templateUrl: './search.html',
   styleUrl: './search.css',
 })
 export class Search implements OnInit {
-  private jobService = inject(Job);
+  
+  private _fb = inject(FormBuilder);
+  private _jobService = inject(JobService);
+  private _route = inject(ActivatedRoute);
+  private _router = inject(Router);
+  private _spinner = inject(NgxSpinnerService);
 
   searchForm!: FormGroup;
-  jobList: any[] = [];
-  isLoading: boolean = false;
+  
+  
+  jobs = signal<JobResponse>({
+    page: 0,
+    page_count: 0,
+    items_per_page: 0,
+    total: 0,
+    results: []
+  });
 
   ngOnInit() {
-   
+    
+    this.searchForm = this._fb.group({
+      keyword: ['', Validators.required],
+      location: ['']
+    });
+
+  
+    this.loadJobs();
   }
 
-search() {
-  this.isLoading = true;
-  
-  const filters = {
-    keyWord: this.searchForm.value.keyword || '',
-    location: this.searchForm.value.location || '',
-    page: 1
-  };
 
+onSearch() {
+  if (this.searchForm.invalid) {
+    toast.error("Please enter a job title/keyword");
+    return;
+  }
 
-  this.jobService.getAllJobs(filters).subscribe({
-  
-    next: (data: any) => { 
-      if (data && data.results) {
-        this.jobList = data.results.filter((job: any) => {
-          
-          return job.name.toLowerCase().includes(filters.keyWord.toLowerCase());
-        });
-      }
-      this.isLoading = false;
-    },
-    error: (err) => {
-      console.error('API Error:', err);
-      this.isLoading = false;
+  const keyword = this.searchForm.value.keyword;
+  const location = this.searchForm.value.location;
+
+ 
+  this._router.navigate([], {
+    relativeTo: this._route,
+    queryParams: { 
+      keyword: keyword,
+      location: location, 
+      page: 1 
     }
+ 
   });
 }
+loadJobs() {
+  this._route.queryParamMap.subscribe((params) => {
+    this._spinner.show(); 
+
+    const page = Number(params.get('page')) || 1;
+    const keyword = params.get('keyword') || '';
+    const location = params.get('location') || undefined;
+
+    this._jobService.getAllJobs(page, keyword, location).subscribe({
+      next: (resp: JobResponse) => {
+        let results = resp.results;
+
+        
+        if (keyword && keyword.trim() !== '') {
+          const lowerKeyword = keyword.toLowerCase().trim();
+          results = results.filter(job => 
+            job.name.toLowerCase().includes(lowerKeyword)
+          );
+        }
+
+     
+        this.jobs.set({
+          ...resp,
+          results: results,
+          total: results.length 
+        });
+
+        this._spinner.hide();
+      },
+      error: () => {
+        this._spinner.hide();
+        toast.error("Error while retrieving jobs");
+      }
+    });
+  });
+}
+  
 }

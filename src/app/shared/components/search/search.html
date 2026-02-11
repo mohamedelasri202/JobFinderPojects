@@ -1,122 +1,113 @@
-<section class="bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
-    <div class="max-w-7xl mx-auto">
-        <!-- Header -->
-        <div class="text-center mb-8">
-            <h2 class="text-3xl font-extrabold text-gray-900 sm:text-4xl">
-                Find your dream job
-            </h2>
-            <p class="mt-4 text-lg text-gray-500">
-                Search through thousands of job listings to find the perfect role for you.
-            </p>
-        </div>
-
-        <!-- Search Box Container -->
-        <div class="bg-white rounded-lg shadow-xl p-6 md:p-8">
-            <div class="grid grid-cols-1 md:grid-cols-12 gap-4 items-end">
-
-                <!-- Job Title / Keywords -->
-                <div class="md:col-span-12 lg:col-span-5">
-                    <label for="search" class="block text-sm font-medium text-gray-700 mb-1">What</label>
-                    <div class="relative">
-                        <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                            <!-- Search Icon -->
-                            <svg class="h-5 w-5 text-gray-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"
-                                fill="currentColor" aria-hidden="true">
-                                <path fill-rule="evenodd"
-                                    d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z"
-                                    clip-rule="evenodd" />
-                            </svg>
-                        </div>
-                        <input type="text" name="search" id="search"
-                            class="block w-full pl-10 pr-3 py-3 border border-gray-300 rounded-md leading-5 bg-white placeholder-gray-500 focus:outline-none focus:placeholder-gray-400 focus:ring-1 focus:ring-blue-500 focus:border-blue-500 sm:text-sm transition duration-150 ease-in-out"
-                            placeholder="Job title, keywords, or company">
-                    </div>
-                </div>
-
-                <!-- Location -->
-                <div class="md:col-span-12 lg:col-span-5">
-                    <label for="location" class="block text-sm font-medium text-gray-700 mb-1">Where</label>
-                    <div class="relative">
-                        <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                            <!-- Location Icon -->
-                            <svg class="h-5 w-5 text-gray-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"
-                                fill="currentColor" aria-hidden="true">
-                                <path fill-rule="evenodd"
-                                    d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z"
-                                    clip-rule="evenodd" />
-                            </svg>
-                        </div>
-                        <input type="text" name="location" id="location"
-                            class="block w-full pl-10 pr-3 py-3 border border-gray-300 rounded-md leading-5 bg-white placeholder-gray-500 focus:outline-none focus:placeholder-gray-400 focus:ring-1 focus:ring-blue-500 focus:border-blue-500 sm:text-sm transition duration-150 ease-in-out"
-                            placeholder="City, state, or zip code">
-                    </div>
-                </div>
-
-                <!-- Search Button -->
-                <div class="md:col-span-12 lg:col-span-2">
-                    <button type="button"
-                        class="w-full flex justify-center items-center py-3 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition duration-150 ease-in-out">
-                        Find Jobs
-                    </button>
-                </div>
-            </div>
-
-            <!-- Filters -->
-            <div class="mt-6 pt-6 border-t border-gray-200 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-
-                <!-- Category Filter -->
-                <div>
-                    <label for="category" class="block text-sm font-medium text-gray-700 mb-1">Category</label>
-                    <select id="category" name="category"
-                        class="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm rounded-md">
-                        <option>All Categories</option>
-                        <option>Technology</option>
-                        <option>Marketing</option>
-                        <option>Finance</option>
-                        <option>Healthcare</option>
-                        <option>Design</option>
-                    </select>
-                </div>
-
-                <!-- Job Type Filter -->
-                <div>
-                    <label for="job-type" class="block text-sm font-medium text-gray-700 mb-1">Job Type</label>
-                    <select id="job-type" name="job-type"
-                        class="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm rounded-md">
-                        <option>Any Job Type</option>
-                        <option>Remote</option>
-                        <option>Onsite</option>
-                        <option>Hybrid</option>
-                    </select>
-                </div>
-
-                <!-- Date Posted Filter -->
-                <div>
-                    <label for="date-posted" class="block text-sm font-medium text-gray-700 mb-1">Date Posted</label>
-                    <select id="date-posted" name="date-posted"
-                        class="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm rounded-md">
-                        <option>Any Time</option>
-                        <option>Last 24 hours</option>
-                        <option>Last week</option>
-                        <option>Last month</option>
-                    </select>
-                </div>
-
-                <!-- Salary Estimate (Example extra filter, keeping generic for now) -->
-                <div>
-                    <label for="salary" class="block text-sm font-medium text-gray-700 mb-1">Salary Estimate</label>
-                    <select id="salary" name="salary"
-                        class="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm rounded-md">
-                        <option>Any Salary</option>
-                        <option>$40k+</option>
-                        <option>$60k+</option>
-                        <option>$80k+</option>
-                        <option>$100k+</option>
-                        <option>$120k+</option>
-                    </select>
-                </div>
-
-            </div>
-        </div>
+<section class="bg-gray-50 py-12 px-4 sm:px-6 lg:px-8 min-h-screen">
+  <div class="max-w-7xl mx-auto">
+    
+    <div class="text-center mb-8">
+      <h2 class="text-3xl font-extrabold text-gray-900 sm:text-4xl">Find your dream job</h2>
+      <p class="mt-4 text-lg text-gray-500">Search through thousands of job listings via The Muse API.</p>
     </div>
+
+    <form [formGroup]="searchForm" (ngSubmit)="onSearch()">
+      <div class="bg-white rounded-lg shadow-xl p-6 md:p-8">
+        <div class="grid grid-cols-1 md:grid-cols-12 gap-4 items-end">
+          
+          <div class="md:col-span-12 lg:col-span-5">
+            <label for="keyword" class="block text-sm font-medium text-gray-700 mb-1">What (Job Title)</label>
+            <input 
+              type="text" 
+              id="keyword"
+              formControlName="keyword" 
+              class="block w-full px-4 py-3 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500 transition duration-150" 
+              placeholder="e.g. Java, Developer, Designer">
+            
+            @if (searchForm.get('keyword')?.touched && searchForm.get('keyword')?.errors?.['required']) {
+              <p class="text-red-500 text-xs mt-1 font-semibold">Job title is required to search.</p>
+            }
+          </div>
+
+          <div class="md:col-span-12 lg:col-span-5">
+            <label for="location" class="block text-sm font-medium text-gray-700 mb-1">Where (Location)</label>
+            <input 
+              type="text" 
+              id="location"
+              formControlName="location" 
+              class="block w-full px-4 py-3 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500 transition duration-150" 
+              placeholder="e.g. New York, Remote">
+          </div>
+
+          <div class="md:col-span-12 lg:col-span-2">
+            <button 
+              type="submit" 
+              [disabled]="searchForm.invalid"
+              class="w-full py-3 px-4 bg-blue-600 text-white rounded-md font-bold hover:bg-blue-700 disabled:bg-gray-400 disabled:cursor-not-allowed transition duration-200">
+              Find Jobs
+            </button>
+          </div>
+        </div>
+      </div>
+    </form>
+
+    <div class="mt-12">
+      
+      @if (jobs().results.length > 0) {
+        <div class="flex justify-between items-center mb-6">
+          <h3 class="text-xl font-bold text-gray-900">
+            Found {{ jobs().total }} Results
+          </h3>
+          <span class="text-sm text-gray-500 italic">Page {{ jobs().page + 1 }} of {{ jobs().page_count }}</span>
+        </div>
+      }
+
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        @for (job of jobs().results; track job.id) {
+          
+          <div class="bg-white p-6 rounded-lg shadow-md border border-gray-100 hover:shadow-lg transition-shadow duration-300 flex flex-col justify-between">
+            <div>
+              <div class="flex justify-between items-start mb-2">
+                <span class="text-xs font-bold text-blue-600 uppercase tracking-wider bg-blue-50 px-2 py-1 rounded">
+                  {{ job.levels[0]?.name || 'All Levels' }}
+                </span>
+                <small class="text-gray-400">{{ job.publication_date | date:'shortDate' }}</small>
+              </div>
+              
+              <h4 class="text-lg font-bold text-gray-900 leading-tight mb-1">{{ job.name }}</h4>
+              <p class="text-gray-600 font-medium mb-4">{{ job.company.name }}</p>
+
+              <div class="flex items-center text-sm text-gray-500 mb-4">
+                <svg class="h-4 w-4 mr-1 text-gray-400" fill="currentColor" viewBox="0 0 20 20">
+                  <path fill-rule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clip-rule="evenodd" />
+                </svg>
+                {{ job.locations[0]?.name || 'Remote / Flexible' }}
+              </div>
+            </div>
+
+            <div class="space-y-2">
+              <a [href]="job.refs.landing_page" target="_blank" 
+                 class="block w-full text-center py-2 px-4 bg-gray-900 text-white rounded font-semibold hover:bg-black transition">
+                View Offer Details
+              </a>
+              
+              <div class="flex gap-2">
+                <button class="flex-1 py-2 px-4 border border-blue-600 text-blue-600 rounded text-sm font-bold hover:bg-blue-50 transition">
+                  Save
+                </button>
+                <button class="flex-1 py-2 px-4 bg-green-600 text-white rounded text-sm font-bold hover:bg-green-700 transition">
+                  Apply
+                </button>
+              </div>
+            </div>
+          </div>
+
+        } @empty {
+          <div class="col-span-full text-center py-20 bg-white rounded-xl border-2 border-dashed border-gray-200">
+            <svg class="mx-auto h-12 w-12 text-gray-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+            </svg>
+            <h3 class="mt-2 text-sm font-medium text-gray-900">No jobs found</h3>
+            <p class="mt-1 text-sm text-gray-500">Try adjusting your keyword or location to find more results.</p>
+          </div>
+        }
+      </div>
+    </div>
+  </div>
 </section>
+
