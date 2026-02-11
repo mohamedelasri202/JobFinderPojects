@@ -4,7 +4,7 @@ import { Search } from '../../shared/components/search/search';
 import { RouterOutlet } from '@angular/router';
 @Component({
   selector: 'app-main-layout',
-  imports: [Header,Search,RouterOutlet],
+  imports: [Search,RouterOutlet],
   templateUrl: './main-layout.html',
   styleUrl: './main-layout.css',
  
