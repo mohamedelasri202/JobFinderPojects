@@ -25,7 +25,5 @@ export class JobService {
     return this._httpClient.get<JobResponse>(`${this.API_THEMUSE}/jobs`, { params });
   }
 
-  favorite(){
-    
-  }
+
 }
