@@ -8,7 +8,7 @@ export class JobService {
   private _httpClient = inject(HttpClient);
   private readonly API_THEMUSE = 'https://www.themuse.com/api/public'; 
 
-  getAllJobs(page?: number, location?: string): Observable<JobResponse> {
+  getAllJobs(page?: number, location?: string ,level?:string): Observable<JobResponse> {
     let params = new HttpParams();
 
     if (page !== undefined) {
@@ -17,6 +17,9 @@ export class JobService {
 
     if (location) {
       params = params.set('location', location);
+    }
+    if(level){
+      params = params.set('level',level)
     }
 
     return this._httpClient.get<JobResponse>(`${this.API_THEMUSE}/jobs`, { params });

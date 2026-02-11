@@ -1,16 +1,30 @@
 import { Routes } from '@angular/router';
 
 export const routes: Routes = [
-    {
-        path:'login',
-        loadComponent:()=>
-            import('./features/auth/login/login').then(m=>m.Login)
+  {
+    path: '',
+    loadComponent: () =>
+      import('./layout/main-layout/main-layout').then(m => m.MainLayout),
+    children: [
+      
+      
+      // add other pages that should show header + search:
+      // { path: 'offers', loadComponent: ... },
+      // { path: 'favorites', loadComponent: ... },
+    ]
+  },
 
+  // Auth pages WITHOUT search/header
+  {
+    path: 'login',
+    loadComponent: () =>
+      import('./features/auth/login/login').then(m => m.Login)
+  },
+  {
+    path: 'inscription',
+    loadComponent: () =>
+      import('./features/auth/inscription/inscription').then(m => m.Inscription)
+  },
 
-},{
-    path:'inscription',
-    loadComponent:()=>
-        import('./features/auth/inscription/inscription').then(m=>m.Inscription)
-}
-
+  { path: '**', redirectTo: '' }
 ];

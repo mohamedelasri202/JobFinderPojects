@@ -7,44 +7,58 @@
     </div>
 
     <form [formGroup]="searchForm" (ngSubmit)="onSearch()">
-      <div class="bg-white rounded-lg shadow-xl p-6 md:p-8">
-        <div class="grid grid-cols-1 md:grid-cols-12 gap-4 items-end">
-          
-          <div class="md:col-span-12 lg:col-span-5">
-            <label for="keyword" class="block text-sm font-medium text-gray-700 mb-1">What (Job Title)</label>
-            <input 
-              type="text" 
-              id="keyword"
-              formControlName="keyword" 
-              class="block w-full px-4 py-3 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500 transition duration-150" 
-              placeholder="e.g. Java, Developer, Designer">
-            
-            @if (searchForm.get('keyword')?.touched && searchForm.get('keyword')?.errors?.['required']) {
-              <p class="text-red-500 text-xs mt-1 font-semibold">Job title is required to search.</p>
-            }
-          </div>
-
-          <div class="md:col-span-12 lg:col-span-5">
-            <label for="location" class="block text-sm font-medium text-gray-700 mb-1">Where (Location)</label>
-            <input 
-              type="text" 
-              id="location"
-              formControlName="location" 
-              class="block w-full px-4 py-3 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500 transition duration-150" 
-              placeholder="e.g. New York, Remote">
-          </div>
-
-          <div class="md:col-span-12 lg:col-span-2">
-            <button 
-              type="submit" 
-              [disabled]="searchForm.invalid"
-              class="w-full py-3 px-4 bg-blue-600 text-white rounded-md font-bold hover:bg-blue-700 disabled:bg-gray-400 disabled:cursor-not-allowed transition duration-200">
-              Find Jobs
-            </button>
-          </div>
-        </div>
+  <div class="bg-white rounded-lg shadow-xl p-6 md:p-8">
+    <div class="grid grid-cols-1 md:grid-cols-12 gap-4 items-end">
+      
+      <!-- Keyword -->
+      <div class="md:col-span-4">
+        <label for="keyword" class="block text-sm font-medium text-gray-700 mb-1">What (Job Title)</label>
+        <input 
+          type="text" 
+          id="keyword"
+          formControlName="keyword" 
+          class="block w-full px-4 py-3 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500 transition duration-150" 
+          placeholder="e.g. Java, Developer, Designer">
       </div>
-    </form>
+
+      <!-- Location -->
+      <div class="md:col-span-4">
+        <label for="location" class="block text-sm font-medium text-gray-700 mb-1">Where (Location)</label>
+        <input 
+          type="text" 
+          id="location"
+          formControlName="location" 
+          class="block w-full px-4 py-3 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500 transition duration-150" 
+          placeholder="e.g. New York, Remote">
+      </div>
+
+      <!-- Experience Level - ADD THIS -->
+      <div class="md:col-span-2">
+        <label for="level" class="block text-sm font-medium text-gray-700 mb-1">Level</label>
+        <select 
+          id="level"
+          formControlName="level" 
+          class="block w-full px-4 py-3 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500 transition duration-150">
+          <option value="">All Levels</option>
+          <option value="Entry Level">Entry Level</option>
+          <option value="Mid Level">Mid Level</option>
+          <option value="Senior Level">Senior Level</option>
+          <option value="Management">Management</option>
+          <option value="Internship">Internship</option>
+        </select>
+      </div>
+
+      <!-- Search Button -->
+      <div class="md:col-span-2">
+        <button 
+          type="submit"
+          class="w-full py-3 px-4 bg-blue-600 text-white rounded-md font-bold hover:bg-blue-700 transition duration-200">
+          Find Jobs
+        </button>
+      </div>
+    </div>
+  </div>
+</form>
 
     <div class="mt-12">
       

@@ -42,7 +42,8 @@ export class Search implements OnInit {
   ngOnInit() {
     this.searchForm = this._fb.group({
       keyword: [''],
-      location: ['']
+      location: [''],
+      level: ['']  // ✅ ADD THIS - was missing!
     });
 
     this.searchForm.get('keyword')?.valueChanges.pipe(
@@ -59,18 +60,27 @@ export class Search implements OnInit {
       this.onSearch();
     });
 
+    this.searchForm.get('level')?.valueChanges.pipe(
+      debounceTime(300),
+      distinctUntilChanged()
+    ).subscribe(() => {
+      this.onSearch();
+    });
+
     this.loadJobs();
   }
 
   onSearch() {
     const keyword = this.searchForm.value.keyword || '';
     const location = this.searchForm.value.location || '';
+    const level = this.searchForm.value.level || '';
 
     this._router.navigate([], {
       relativeTo: this._route,
       queryParams: { 
         keyword: keyword,
         location: location, 
+        level: level,  // ✅ Fixed: was just "level" before
         page: 1  
       }
     });
@@ -83,14 +93,15 @@ export class Search implements OnInit {
       const currentPage = Number(params.get('page')) || 1;
       const keyword = params.get('keyword') || '';
       const locationFilter = params.get('location') || '';
+      const levelFilter = params.get('level') || '';
 
       const pagesToFetch = 10; 
       const requests = [];
 
       for (let i = 1; i <= pagesToFetch; i++) {
         requests.push(
-          // Don't pass location to API, we'll filter client-side
-          this._jobService.getAllJobs(i, undefined).pipe(
+          // ✅ PASS level to the API (it will do some filtering for us)
+          this._jobService.getAllJobs(i, locationFilter || undefined, levelFilter || undefined).pipe(
             catchError(() => of(null))
           )
         );
@@ -114,17 +125,26 @@ export class Search implements OnInit {
             );
           }
 
-          // Filter by location (search in locations array)
+          // Filter by location (already filtered by API, but double-check client-side)
           if (locationFilter && locationFilter.trim() !== '') {
             const lowerLocation = locationFilter.toLowerCase().trim();
             allResults = allResults.filter(job => {
-              // Check if any location contains the search term
               return job.locations && job.locations.some(loc => 
                 loc.name.toLowerCase().includes(lowerLocation)
               );
             });
           }
-
+          
+          // Filter by level (already filtered by API, but double-check client-side)
+          if (levelFilter && levelFilter.trim() !== '') {
+            const levelLower = levelFilter.toLowerCase().trim();
+            allResults = allResults.filter(job => {
+              return job.levels && job.levels.some(lev =>
+                lev.name.toLowerCase().includes(levelLower)
+              );
+            });
+          }
+         
           // Sort by publication date (newest first)
           allResults.sort((a, b) => {
             const dateA = new Date(a.publication_date).getTime();
@@ -151,15 +171,18 @@ export class Search implements OnInit {
 
           this._spinner.hide();
           
-          // Show appropriate message
+          // Better toast messages
           if (totalResults === 0) {
-            if (keyword && locationFilter) {
-              toast.info(`No jobs found with "${keyword}" in "${locationFilter}"`);
-            } else if (keyword) {
-              toast.info(`No jobs found with "${keyword}" in the title`);
-            } else if (locationFilter) {
-              toast.info(`No jobs found in "${locationFilter}"`);
+            let message = 'No jobs found';
+            const filters = [];
+            if (keyword) filters.push(`"${keyword}"`);
+            if (locationFilter) filters.push(`in "${locationFilter}"`);
+            if (levelFilter) filters.push(`at "${levelFilter}" level`);
+            
+            if (filters.length > 0) {
+              message = `No jobs found for ${filters.join(' ')}`;
             }
+            toast.info(message);
           }
         },
         error: () => {
@@ -173,12 +196,14 @@ export class Search implements OnInit {
   goToPage(page: number) {
     const keyword = this.searchForm.value.keyword || '';
     const location = this.searchForm.value.location || '';
+    const level = this.searchForm.value.level || '';  // ✅ ADD THIS - was missing!
 
     this._router.navigate([], {
       relativeTo: this._route,
       queryParams: { 
         keyword: keyword,
-        location: location, 
+        location: location,
+        level: level,  // ✅ ADD THIS - was missing!
         page: page
       }
     });
