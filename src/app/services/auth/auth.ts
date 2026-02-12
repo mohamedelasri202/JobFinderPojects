@@ -9,18 +9,6 @@ export class Auth {
   private http = inject(HttpClient);  
   private apiUrl = 'http://localhost:3000'
 
-
-
-
-
-
-
-
-
-
-
-
-
   register(userData:any):Observable<any>{
     console.log("its in the service")
     return this.http.post(`${this.apiUrl}/users`,userData);

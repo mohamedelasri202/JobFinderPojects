@@ -5,9 +5,7 @@ export const guestGuard: CanActivateFn = (route, state) => {
   const router = inject(Router);
   const user =localStorage.getItem('user')
 
-
-
   return user 
-  ?router.createUrlTree(['/'])
+  ? router.createUrlTree(['/'])
   :true;  
 };

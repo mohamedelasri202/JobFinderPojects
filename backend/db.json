@@ -29,5 +29,19 @@
       "password": "1324679"
     }
   ],
-  "favorits": []
+  "favorits": [
+    {
+      "id": "88c7",
+      "userId": "user_id_from_auth",
+      "offerId": "21225108",
+      "apiSource": "TheMuse",
+      "title": "Physician - OB/GYN",
+      "company": "Christus Health",
+      "location": "Texarkana, AR",
+      "url": "https://www.themuse.com/jobs/christushealth/physician-obgyn-f3cdee",
+      "status": "pending",
+      "notes": "",
+      "dateAdded": "2026-02-12T16:16:08.008Z"
+    }
+  ]
 }
