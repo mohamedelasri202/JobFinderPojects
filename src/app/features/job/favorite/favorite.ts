@@ -7,14 +7,7 @@ import { favorite } from '../../../modules/job/favorite';// Your interface
   selector: 'app-favorite',
   standalone: true,
   imports: [ReactiveFormsModule],
-  template: `
-    <form [formGroup]="favortiteForm" (ngSubmit)="onSubmit()">
-      <button type="submit" 
-        class="w-full py-2 px-4 border border-blue-600 text-blue-600 rounded text-sm font-bold hover:bg-blue-50 transition">
-        Save
-      </button>
-    </form>
-  `
+    templateUrl: './favorite.html',
 })
 export class Favorite implements OnInit {
   @Input({ required: true }) jobData!: any; 
@@ -24,9 +17,9 @@ export class Favorite implements OnInit {
   private favService = inject(favoriteService);
 
   ngOnInit(): void {
-    // 1. Map the job data to match your 'favorite' interface exactly
+    
     this.favortiteForm = this.fb.group({
-      userId: ['user_id_from_auth'], // Logic to get current user
+      userId: ['user_id_from_auth'], 
       offerId: [this.jobData.id?.toString()],
       apiSource: ['TheMuse'],
       title: [this.jobData.name],
@@ -35,13 +28,13 @@ export class Favorite implements OnInit {
       url: [this.jobData.refs?.landing_page],
       status: ['pending'],
       notes: [''],
-      dateAdded: [new Date().toISOString()] // Added this to match interface
+      dateAdded: [new Date().toISOString()] 
     });
   }
 
   onSubmit() {
     if (this.favortiteForm.valid) {
-      // Cast the value to your 'favorite' interface
+    
       const finalData: favorite = this.favortiteForm.value;
       
       this.favService.addFavorite(finalData).subscribe({
