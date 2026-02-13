@@ -17,7 +17,7 @@ export class Follow {
   private fb = inject(FormBuilder)
   private followService = inject(FollowService)
 
-  followAjobOffer(job){
+  followAjobOffer(){
 
 
   }
