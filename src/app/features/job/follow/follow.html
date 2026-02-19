@@ -1,1 +1,15 @@
-<p>follow works!</p>
+<form [formGroup] ="followForm" (ngSubmit)="onSubmit()">
+ <button 
+    type="submit" 
+    [disabled]="isFollwed$ | async"
+    [ngClass]="(isFollwed$ | async) 
+      ? 'w-full py-2 px-4 bg-gray-100 text-gray-400 border border-gray-200 rounded text-sm font-bold cursor-not-allowed' 
+      : 'w-full py-2 px-4 border border-blue-600 text-blue-600 rounded text-sm font-bold hover:bg-blue-50 transition'"
+  >
+    @if (isFollwed$ | async) {
+      <span>Saved ✅</span>
+    } @else {
+      <span>favorite</span>
+    }
+  </button>
+</form>

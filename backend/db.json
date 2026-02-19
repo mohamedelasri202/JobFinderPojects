@@ -55,6 +55,54 @@
       "status": "pending",
       "notes": "",
       "dateAdded": "2026-02-13T08:02:40.517Z"
+    },
+    {
+      "id": "97ea",
+      "userId": "user_id_from_auth",
+      "offerId": "21261266",
+      "apiSource": "TheMuse",
+      "title": "Full-time Nurse Practitioner or Physician Assistant - Senior Care Facilities - Milwaukee, Waukesha, WI",
+      "company": "Optum",
+      "location": "Milwaukee, WI",
+      "url": "https://www.themuse.com/jobs/optum/fulltime-nurse-practitioner-or-physician-assistant-senior-care-facilities-milwaukee-waukesha-wi-236a5c",
+      "status": "pending",
+      "notes": "",
+      "dateAdded": "2026-02-13T14:10:27.624Z"
+    },
+    {
+      "id": "1642",
+      "userId": "user_id_from_auth",
+      "offerId": "21273726",
+      "apiSource": "TheMuse",
+      "title": "Hiring Event - Project Engineers",
+      "company": "L3Harris Technologies",
+      "location": "Whitney, TX",
+      "url": "https://www.themuse.com/jobs/l3harristechnologies/hiring-event-project-engineers-229a56",
+      "status": "pending",
+      "notes": "",
+      "dateAdded": "2026-02-13T14:10:27.626Z"
+    },
+    {
+      "id": "a42d",
+      "userId": "user_id_from_auth",
+      "offerId": "21303614",
+      "apiSource": "TheMuse",
+      "title": "Quality Technician II- Syrup Mixer (3rd Shift 7pm-3:30am)",
+      "company": "The Coca-Cola Company",
+      "location": "Atlanta, GA",
+      "url": "https://www.themuse.com/jobs/thecocacolacompany/quality-technician-ii-syrup-mixer-3rd-shift-7pm330am-91bb03",
+      "status": "pending",
+      "notes": "",
+      "dateAdded": "2026-02-19T01:10:51.700Z"
+    },
+    {
+      "id": "fc58",
+      "userId": "user_id_from_auth",
+      "offerId": "21303724",
+      "apiSource": "TheMuse",
+      "title": "Senior Manager, Legislative & Judiciary Affairs, Mexico",
+      "company": "The Coca-Cola Company",
+      "location": "Mexico City, Mexico"
     }
   ]
 }

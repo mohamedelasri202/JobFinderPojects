@@ -3,9 +3,10 @@ import { Job } from '../../../modules/job/job-module';
 import { required } from '@angular/forms/signals';
 import { CommonModule } from '@angular/common';
 import { Favorite } from '../favorite/favorite';
+import { Follow } from '../follow/follow';
 @Component({
   selector: 'app-job-card',
-  imports: [CommonModule,Favorite],
+  imports: [CommonModule,Favorite,Follow],
   templateUrl: './job-card.html',
   styleUrl: './job-card.css',
 })
