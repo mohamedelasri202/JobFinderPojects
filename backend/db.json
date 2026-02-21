@@ -104,5 +104,20 @@
       "company": "The Coca-Cola Company",
       "location": "Mexico City, Mexico"
     }
+  ],
+  "follows": [
+    {
+      "id": "8911",
+      "userId": 2,
+      "offerId": "21292086",
+      "apiSource": "adzuna",
+      "title": "Hiring Event - Structural Engineers",
+      "company": "L3Harris Technologies",
+      "location": "Whitney, TX",
+      "url": "https://www.themuse.com/jobs/l3harristechnologies/hiring-event-structural-engineers-cb457f",
+      "status": "en_attente",
+      "notes": "Followed from search",
+      "dateAdded": "2026-02-21T18:09:44.883Z"
+    }
   ]
 }

@@ -7,6 +7,8 @@ import { provideStore } from '@ngrx/store';
 import { provideEffects } from '@ngrx/effects';
 import { favoriteReducer } from './state/favorite/favorite.reducer'; 
 import { FavoritEffect } from './state/favorite/favorite.effects'; 
+import { followReducer } from './state/follow/follow.reducer';
+import { FollowEffects } from './state/follow/follow.effects';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -15,9 +17,9 @@ export const appConfig: ApplicationConfig = {
     provideHttpClient(),
     
   
-    provideStore({ favorites: favoriteReducer }),
+    provideStore({ favorites: favoriteReducer ,follows:followReducer}),
 
 
-    provideEffects([FavoritEffect])
+    provideEffects([FavoritEffect,FollowEffects])
   ]
 };
