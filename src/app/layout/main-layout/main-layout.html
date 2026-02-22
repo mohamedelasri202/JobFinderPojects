@@ -1,2 +1,4 @@
-<app-search></app-search>
-<router-outlet></router-outlet>
+@if (!outlet.isActivated) {
+  <app-search></app-search>
+}
+<router-outlet #outlet="outlet"></router-outlet>

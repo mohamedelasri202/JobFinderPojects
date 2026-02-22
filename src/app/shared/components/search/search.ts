@@ -87,113 +87,33 @@ export class Search implements OnInit {
     });
   }
 
-  loadJobs() {
-    this._route.queryParamMap.subscribe((params) => {
-      this._spinner.show(); 
+loadJobs() {
+  this._route.queryParamMap.subscribe((params) => {
+    
+    const currentPage = Number(params.get('page')) || 1;
+    const location = params.get('location') || '';
+    const level = params.get('level') || '';
 
-      const currentPage = Number(params.get('page')) || 1;
-      const keyword = params.get('keyword') || '';
-      const locationFilter = params.get('location') || '';
-      const levelFilter = params.get('level') || '';
+    this._spinner.show();
 
-      const pagesToFetch = 10; 
-      const requests = [];
-
-      for (let i = 1; i <= pagesToFetch; i++) {
-        requests.push(
-          
-          this._jobService.getAllJobs(i, locationFilter || undefined, levelFilter || undefined).pipe(
-            catchError(() => of(null))
-          )
-        );
-      }
-
-      forkJoin(requests).subscribe({
-        next: (responses: any[]) => {
-          let allResults: Job[] = [];
-          
-          responses.forEach(resp => {
-            if (resp && resp.results) {
-              allResults = [...allResults, ...resp.results];
-            }
-          });
-
-          
-          if (keyword && keyword.trim() !== '') {
-            const lowerKeyword = keyword.toLowerCase().trim();
-            allResults = allResults.filter(job => 
-              job.name.toLowerCase().includes(lowerKeyword)
-            );
+    
+    this._jobService.getAllJobs(currentPage, location || undefined, level || undefined)
+      .pipe(
+        catchError((err) => {
+          if (err.status === 429) {
+            toast.error("API Limit reached. Please wait 15 minutes.");
           }
-
-        
-          if (locationFilter && locationFilter.trim() !== '') {
-            const lowerLocation = locationFilter.toLowerCase().trim();
-            allResults = allResults.filter(job => {
-              return job.locations && job.locations.some(loc => 
-                loc.name.toLowerCase().includes(lowerLocation)
-              );
-            });
-          }
-          
-         
-          if (levelFilter && levelFilter.trim() !== '') {
-            const levelLower = levelFilter.toLowerCase().trim();
-            allResults = allResults.filter(job => {
-              return job.levels && job.levels.some(lev =>
-                lev.name.toLowerCase().includes(levelLower)
-              );
-            });
-          }
-         
-          
-          allResults.sort((a, b) => {
-            const dateA = new Date(a.publication_date).getTime();
-            const dateB = new Date(b.publication_date).getTime();
-            return dateB - dateA; 
-          });
-
-          this.allFilteredJobs = allResults;
-
-          const totalResults = allResults.length;
-          const totalPages = Math.ceil(totalResults / this.ITEMS_PER_PAGE);
-          
-          const startIndex = (currentPage - 1) * this.ITEMS_PER_PAGE;
-          const endIndex = startIndex + this.ITEMS_PER_PAGE;
-          const paginatedResults = allResults.slice(startIndex, endIndex);
-
-          this.jobs.set({
-            page: currentPage - 1, 
-            page_count: totalPages,
-            items_per_page: this.ITEMS_PER_PAGE,
-            total: totalResults,
-            results: paginatedResults
-          });
-
-          this._spinner.hide();
-          
-        
-          if (totalResults === 0) {
-            let message = 'No jobs found';
-            const filters = [];
-            if (keyword) filters.push(`"${keyword}"`);
-            if (locationFilter) filters.push(`in "${locationFilter}"`);
-            if (levelFilter) filters.push(`at "${levelFilter}" level`);
-            
-            if (filters.length > 0) {
-              message = `No jobs found for ${filters.join(' ')}`;
-            }
-            toast.info(message);
-          }
-        },
-        error: () => {
-          this._spinner.hide();
-          toast.error("Error while retrieving jobs");
+          return of(null);
+        })
+      )
+      .subscribe((resp: any) => {
+        if (resp && resp.results) {
+           this.jobs.set(resp);
         }
+        this._spinner.hide();
       });
-    });
-  }
-
+  });
+}
   goToPage(page: number) {
     const keyword = this.searchForm.value.keyword || '';
     const location = this.searchForm.value.location || '';

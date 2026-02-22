@@ -9,8 +9,8 @@
     },
     {
       "id": "ad1f",
-      "userName": "afdadf",
-      "name": "mohamed",
+      "userName": "EL ASRI",
+      "name": "MOHAMED",
       "email": "mohamedelasri971@gmail.com",
       "password": "123456789"
     },
@@ -31,93 +31,48 @@
   ],
   "favorits": [
     {
-      "id": "88c7",
+      "id": "ad32",
       "userId": "user_id_from_auth",
-      "offerId": "21225108",
-      "apiSource": "TheMuse",
-      "title": "Physician - OB/GYN",
-      "company": "Christus Health",
-      "location": "Texarkana, AR",
-      "url": "https://www.themuse.com/jobs/christushealth/physician-obgyn-f3cdee",
-      "status": "pending",
-      "notes": "",
-      "dateAdded": "2026-02-12T16:16:08.008Z"
+      "offerId": "20693577",
+      "title": " Senior Technical Product Manager - AvaCloud",
+      "company": "Ava Labs",
+      "location": "Flexible / Remote"
     },
     {
-      "id": "9e6f",
+      "id": "2cab",
       "userId": "user_id_from_auth",
-      "offerId": "21259116",
-      "apiSource": "TheMuse",
-      "title": "Specialist, Electrical Engineer",
-      "company": "L3Harris Technologies",
-      "location": "Temple, TX",
-      "url": "https://www.themuse.com/jobs/l3harristechnologies/specialist-electrical-engineer",
-      "status": "pending",
-      "notes": "",
-      "dateAdded": "2026-02-13T08:02:40.517Z"
-    },
-    {
-      "id": "97ea",
-      "userId": "user_id_from_auth",
-      "offerId": "21261266",
-      "apiSource": "TheMuse",
-      "title": "Full-time Nurse Practitioner or Physician Assistant - Senior Care Facilities - Milwaukee, Waukesha, WI",
-      "company": "Optum",
-      "location": "Milwaukee, WI",
-      "url": "https://www.themuse.com/jobs/optum/fulltime-nurse-practitioner-or-physician-assistant-senior-care-facilities-milwaukee-waukesha-wi-236a5c",
-      "status": "pending",
-      "notes": "",
-      "dateAdded": "2026-02-13T14:10:27.624Z"
-    },
-    {
-      "id": "1642",
-      "userId": "user_id_from_auth",
-      "offerId": "21273726",
-      "apiSource": "TheMuse",
-      "title": "Hiring Event - Project Engineers",
-      "company": "L3Harris Technologies",
-      "location": "Whitney, TX",
-      "url": "https://www.themuse.com/jobs/l3harristechnologies/hiring-event-project-engineers-229a56",
-      "status": "pending",
-      "notes": "",
-      "dateAdded": "2026-02-13T14:10:27.626Z"
-    },
-    {
-      "id": "a42d",
-      "userId": "user_id_from_auth",
-      "offerId": "21303614",
-      "apiSource": "TheMuse",
-      "title": "Quality Technician II- Syrup Mixer (3rd Shift 7pm-3:30am)",
-      "company": "The Coca-Cola Company",
-      "location": "Atlanta, GA",
-      "url": "https://www.themuse.com/jobs/thecocacolacompany/quality-technician-ii-syrup-mixer-3rd-shift-7pm330am-91bb03",
-      "status": "pending",
-      "notes": "",
-      "dateAdded": "2026-02-19T01:10:51.700Z"
-    },
-    {
-      "id": "fc58",
-      "userId": "user_id_from_auth",
-      "offerId": "21303724",
-      "apiSource": "TheMuse",
-      "title": "Senior Manager, Legislative & Judiciary Affairs, Mexico",
-      "company": "The Coca-Cola Company",
-      "location": "Mexico City, Mexico"
+      "offerId": "20693577",
+      "title": " Senior Technical Product Manager - AvaCloud",
+      "company": "Ava Labs",
+      "location": "Flexible / Remote"
     }
   ],
   "follows": [
     {
-      "id": "8911",
+      "id": "ccc3",
       "userId": 2,
-      "offerId": "21292086",
+      "offerId": "17625191",
       "apiSource": "adzuna",
-      "title": "Hiring Event - Structural Engineers",
-      "company": "L3Harris Technologies",
-      "location": "Whitney, TX",
-      "url": "https://www.themuse.com/jobs/l3harristechnologies/hiring-event-structural-engineers-cb457f",
+      "title": "Relationship Banker - Sarasota Market",
+      "company": "Bank of America",
+      "location": "Sarasota, FL",
+      "url": "https://www.themuse.com/jobs/bankofamerica/relationship-banker-sarasota-market-ede304",
       "status": "en_attente",
       "notes": "Followed from search",
-      "dateAdded": "2026-02-21T18:09:44.883Z"
+      "dateAdded": "2026-02-22T01:22:13.438Z"
+    },
+    {
+      "id": "76ce",
+      "userId": 2,
+      "offerId": "20693577",
+      "apiSource": "adzuna",
+      "title": " Senior Technical Product Manager - AvaCloud",
+      "company": "Ava Labs",
+      "location": "Flexible / Remote",
+      "url": "https://www.themuse.com/jobs/avalabs/senior-technical-product-manager-avacloud",
+      "status": "en_attente",
+      "notes": "Followed from search",
+      "dateAdded": "2026-02-22T02:13:25.476Z"
     }
   ]
 }

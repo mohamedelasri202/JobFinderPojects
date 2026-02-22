@@ -1,8 +1,7 @@
-import { Component, OnInit, inject } from '@angular/core';
-import { NavigationEnd, Router, RouterModule } from '@angular/router';
+import { Component, inject } from '@angular/core';
+import { Router, RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
-import { filter } from 'rxjs';
-import { User } from '../../../services/user/user';
+import { Auth } from '../../../services/auth/auth'; 
 
 @Component({
   selector: 'app-header',
@@ -11,26 +10,17 @@ import { User } from '../../../services/user/user';
   templateUrl: './header.html',
   styleUrl: './header.css',
 })
-export class Header implements OnInit {
-  private userService = inject(User)
+export class Header {
 
-  user:any | null;
-  constructor(private router :Router){}
- 
-
-  ngOnInit(): void {
-    this.userService.user$.subscribe(user =>{
-this.user =user;
-    });
+  private authService = inject(Auth);
+  private router = inject(Router);
 
 
+  user$ = this.authService.user$;
+
+  logOut() {
+   
+    this.authService.logOut();
+    this.router.navigate(['/login']);
   }
-
-  logOut(){
-   this.userService.clearUser()
-    
-    this.router.navigate(['/login'])
-  }
-
-  
 }

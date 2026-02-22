@@ -1,0 +1,93 @@
+<div class="container mx-auto p-6">
+  @if (follows$ | async; as follows) {
+    <div class="flex justify-between items-center mb-8">
+      <h2 class="text-2xl font-bold text-gray-800 border-l-4 border-green-600 pl-4">
+        Suivi des Candidatures
+      </h2>
+      <span class="bg-green-100 text-green-700 text-xs font-bold px-3 py-1 rounded-full shadow-sm">
+        {{ follows.length }} Entreprises suivies
+      </span>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      @for (follow of follows; track follow.id) {
+        <div class="bg-white rounded-xl shadow-sm border border-gray-200 hover:shadow-lg transition-all duration-300 flex flex-col">
+          <div class="p-6 flex-grow">
+            
+            <div class="flex justify-between items-start mb-4">
+              <div class="max-w-[70%]">
+                <h3 class="text-lg font-bold text-gray-900 leading-tight truncate" [title]="follow.title">
+                  {{ follow.title }}
+                </h3>
+                <p class="text-green-600 font-medium text-sm">{{ follow.company }}</p>
+              </div>
+              <div class="text-right flex-shrink-0">
+                <span class="block text-gray-400 text-[10px] uppercase font-bold tracking-wider">Ajouté le</span>
+                <span class="text-gray-600 text-xs font-medium">{{ follow.dateAdded | date:'dd/MM/yyyy' }}</span>
+              </div>
+            </div>
+
+            <div class="space-y-3 mb-6">
+              <div class="flex items-center text-gray-500 text-sm">
+                <svg class="w-4 h-4 mr-2 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path>
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                </svg>
+                {{ follow.location || 'Lieu non spécifié' }}
+              </div>
+              <div class="flex items-center text-gray-500 text-sm">
+                <svg class="w-4 h-4 mr-2 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1"></path>
+                </svg>
+                <a [href]="follow.url" target="_blank" class="text-blue-500 hover:text-blue-700 font-medium transition-colors truncate">
+                  Voir l'offre originale
+                </a>
+              </div>
+            </div>
+
+            <div class="bg-gray-50 p-4 rounded-lg border border-gray-100">
+              <label class="block text-[10px] font-bold text-gray-400 uppercase mb-2 tracking-widest">
+                Modifier le statut
+              </label>
+              <select 
+                [value]="follow.status"
+                (change)="updateStatus(follow, $event)"
+                [ngClass]="{
+                  'border-yellow-400 text-yellow-700 bg-yellow-50': follow.status === 'en_attente',
+                  'border-green-500 text-green-700 bg-green-50': follow.status === 'accepte',
+                  'border-red-500 text-red-700 bg-red-50': follow.status === 'refuse'
+                }"
+                class="w-full border-2 p-2 rounded-lg text-sm font-semibold outline-none cursor-pointer transition-all">
+                <option value="en_attente">En attente</option>
+                <option value="accepte">Accepté</option>
+                <option value="refuse">Refusé</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="px-6 py-4 bg-gray-50/50 border-t border-gray-100 flex justify-between items-center rounded-b-xl">
+            <button 
+              (click)="deleteJob(follow.id)"
+              class="text-xs text-red-500 hover:text-red-700 font-bold flex items-center transition-colors group">
+              <svg class="w-4 h-4 mr-1.5 group-hover:scale-110 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path>
+              </svg>
+              Supprimer
+            </button>
+            <span class="text-[10px] text-gray-400 italic font-medium">Source: {{ follow.apiSource || 'Interne' }}</span>
+          </div>
+        </div>
+      } @empty {
+        <div class="col-span-full text-center py-24 bg-white rounded-2xl border-2 border-dashed border-gray-200">
+          <div class="bg-gray-50 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
+            <svg class="w-8 h-8 text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01"></path>
+            </svg>
+          </div>
+          <p class="text-gray-500 font-medium">Aucune candidature suivie pour le moment.</p>
+          <p class="text-gray-400 text-sm mt-1">Les jobs que vous suivez apparaîtront ici.</p>
+        </div>
+      }
+    </div>
+  }
+</div>

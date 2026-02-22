@@ -1,0 +1,46 @@
+<div class="container mx-auto p-6">
+  @if (favorites$ | async; as favorites) {
+    <h2 class="text-2xl font-bold mb-6 text-gray-800">My Favorite Jobs</h2>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      @for (job of favorites; track job.id) {
+        <div class="bg-white rounded-xl shadow-md overflow-hidden border border-gray-100 hover:shadow-lg transition-shadow">
+          <div class="p-5">
+            <div class="flex justify-between items-start">
+              <span class="text-xs font-semibold px-2 py-1 bg-blue-100 text-blue-700 rounded-full uppercase">
+                {{ job.apiSource }}
+              </span>
+              <span class="text-gray-400 text-xs">{{ job.dateAdded | date:'shortDate' }}</span>
+            </div>
+
+            <h3 class="mt-3 text-lg font-bold text-gray-900 leading-tight">{{ job.title }}</h3>
+            <p class="text-blue-600 font-medium text-sm">{{ job.company }}</p>
+            
+            <div class="mt-4 flex items-center text-gray-500 text-sm">
+              <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path>
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path>
+              </svg>
+              {{ job.location }}
+            </div>
+
+            <div class="mt-6 flex gap-2">
+              <a [href]="job.url" target="_blank" class="flex-1 text-center py-2 px-4 bg-blue-600 text-white rounded-lg text-sm font-semibold hover:bg-blue-700 transition">
+                View Offer
+              </a>
+              <button 
+                (click)="deleteFavorite(job.id)"
+                class="px-3 py-2 border border-red-200 text-red-500 rounded-lg hover:bg-red-50 transition">
+                <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+                  <path fill-rule="evenodd" d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v6a1 1 0 102 0V8a1 1 0 00-1-1z" clip-rule="evenodd"></path>
+                </svg>
+              </button>
+            </div>
+          </div>
+        </div>
+      } @empty {
+        <p class="text-gray-500 col-span-full text-center py-10">You haven't added any favorites yet.</p>
+      }
+    </div>
+  }
+</div>
