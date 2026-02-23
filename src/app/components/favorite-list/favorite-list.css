@@ -1,5 +1,4 @@
 :host {
   display: block;
   width: 100%;
-  min-height: 100vh; /* Ensures the container doesn't collapse */
-}
+  min-height: 100vh; }

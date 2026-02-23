@@ -9,7 +9,7 @@ import { BehaviorSubject, switchMap } from 'rxjs';
   standalone: true,
   imports: [CommonModule, AsyncPipe, DatePipe],
   templateUrl: './favorite-list.html',
-  styleUrl: './favorite-list.css'
+  styleUrl: './/favorite-list.css'
 })
 export class FavoriteList {
   private favService = inject(favoriteService); 
