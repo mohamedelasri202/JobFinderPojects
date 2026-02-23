@@ -9,7 +9,7 @@
     },
     {
       "id": "ad1f",
-      "userName": "EL ASRI",
+      "userName": "EL ASR",
       "name": "MOHAMED",
       "email": "mohamedelasri971@gmail.com",
       "password": "123456789"
@@ -32,14 +32,6 @@
   "favorits": [
     {
       "id": "ad32",
-      "userId": "user_id_from_auth",
-      "offerId": "20693577",
-      "title": " Senior Technical Product Manager - AvaCloud",
-      "company": "Ava Labs",
-      "location": "Flexible / Remote"
-    },
-    {
-      "id": "2cab",
       "userId": "user_id_from_auth",
       "offerId": "20693577",
       "title": " Senior Technical Product Manager - AvaCloud",
